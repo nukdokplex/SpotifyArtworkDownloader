@@ -101,50 +101,25 @@ namespace SpotifyArtworkDownloader
                 //We don't support episodes for now
             }
 
-            Dictionary<string, string> arts = new Dictionary<string, string>();
-
-            var albums = (from track in tracksJson
-                          select track.album).Distinct();
+            var albums = tracksJson
+                .GroupBy(track => track.album.imageUrl)
+                .Select(track => track.First().album)
+                .ToList();     
 
             var playlistArt = selectedPlaylist.Images.Count > 0 ? Utils.FindBestImage(selectedPlaylist.Images).Url : "";
 
             Console.WriteLine($"Found {albums.Count() + (string.IsNullOrEmpty(playlistArt) ? 0 : 1)} unique art(s). ");
-            Console.WriteLine("Press any key to select the output directory where they will be downloaded...");
-
-            Console.ReadKey();
-
-            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            folderBrowserDialog.Description = "Choose output directory where artworks will be downloaded...";
-            var result = folderBrowserDialog.ShowDialog();
-
-            if (result != System.Windows.Forms.DialogResult.OK)
-            {
-                Console.WriteLine("Download aborted!");
-                return;
-            }
-            try
-            {
-                if (!Directory.Exists(folderBrowserDialog.SelectedPath))
-                {
-                    Directory.CreateDirectory(folderBrowserDialog.SelectedPath);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Couldn't create output directory! Download aborted.");
-                return;
-            }
-
-            
+            Console.Write("Enter output directory path: ");
+            string selectedPath = Console.ReadLine();
 
             var downloadOpt = new DownloadConfiguration()
             {
-                ChunkCount = 3, // file parts to download, default value is 1
-                OnTheFlyDownload = true, // caching in-memory or not? default values is true
-                ParallelDownload = true // download parts of file as parallel or not. Default value is false
+                ChunkCount = 1, // file parts to download, default value is 1
+                OnTheFlyDownload = false, // caching in-memory or not? default values is true
+                ParallelDownload = false // download parts of file as parallel or not. Default value is false
             };
 
-            using (FileStream fs = new FileStream(Path.Combine(folderBrowserDialog.SelectedPath, "trackinfo.json"), FileMode.Create, FileAccess.Write))
+            using (FileStream fs = new FileStream(Path.Combine(selectedPath, "trackinfo.json"), FileMode.Create, FileAccess.Write))
             {
                 await JsonSerializer.SerializeAsync<List<Models.Track>>(fs, tracksJson);
             }
@@ -153,11 +128,11 @@ namespace SpotifyArtworkDownloader
 
             downloader.DownloadFileCompleted += OnFileCompleted;
 
-            foreach (var art in arts)
+            foreach (var album in albums)
             {
-                string file = Path.Combine(folderBrowserDialog.SelectedPath, art.Value + ".jpg");
-                string url = art.Key;
-                await downloader.DownloadFileTaskAsync(file, url);
+                string file = Path.Combine(selectedPath,  $"{ Utils.JoinArtists(album.artists) } - { album.title }.jpg");
+                string url = album.imageUrl;
+                await downloader.DownloadFileTaskAsync(url, file);
             }
 
             Console.WriteLine("All download tasks completed! Have a nice day!\n");
