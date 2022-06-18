@@ -21,7 +21,6 @@ C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\obj\Debug\SpotifyArtworkDow
 C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\obj\Debug\SpotifyArtworkDownloader.csproj.CopyComplete
 C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\obj\Debug\SpotifyArtworkDownloader.exe
 C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\obj\Debug\SpotifyArtworkDownloader.pdb
-C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\Downloader.dll
 C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\System.Buffers.dll
 C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\System.Memory.dll
@@ -38,3 +37,7 @@ C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\System.Runtime.Co
 C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\System.Text.Encodings.Web.xml
 C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\System.Text.Json.xml
 C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\Id3.Net.dll
+C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\JetBrains.Annotations.dll
+C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\Id3.Net.xml
+C:\Users\NukDo\source\repos\SpotifyArtworkDownloader\bin\Debug\JetBrains.Annotations.xml

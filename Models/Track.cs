@@ -32,10 +32,13 @@ namespace SpotifyArtworkDownloader.Models
         [JsonPropertyName("genre")]
         public string genre { get; set; }
 
+        [JsonPropertyName("duration")]
+        public int duration { get; set; }
+
         [JsonPropertyName("diskNumber")]
         public string diskNumber { get; set; }
 
-        public Track(string id, string title, Album album, List<Artist> artists, string release_date, int number, string genre, string diskNumber)
+        public Track(string id, string title, Album album, List<Artist> artists, string release_date, int number, string genre, int duration, string diskNumber)
         {
             this.id = id;
             this.title = title;
@@ -44,6 +47,7 @@ namespace SpotifyArtworkDownloader.Models
             this.release_date = release_date;
             this.number = number;
             this.genre = genre;
+            this.duration = duration;
             this.diskNumber = diskNumber;
         }
 
@@ -62,6 +66,7 @@ namespace SpotifyArtworkDownloader.Models
                 release_date: track.Album.ReleaseDate,
                 number: track.TrackNumber,
                 genre: "", //TODO get genre somehow or delete
+                duration: track.DurationMs,
                 diskNumber: track.DiscNumber.ToString());
         }
 
